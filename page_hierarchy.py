@@ -2,6 +2,9 @@ from pelican import signals
 from os.path import splitext, dirname
 
 '''
+This plugin creates a URL hierarchy for pages that matches the
+filesystem hierarchy of their sources.
+
 To maintain a URL hierarchy that is consistent with the filesystem
 hierarchy, the slug of each page is forced to be its source base
 filename.

@@ -53,7 +53,9 @@ breadcrumbs:
 
 ```python
 <ul class="breadcrumb">
-  <li><a href="{{ SITEURL }}/" title="{{ SITENAME }}"><i class="fa fa-home fa-lg"></i></a></li>
+  <li><a href="{{ SITEURL }}/" title="{{ SITENAME }}">
+    <i class="fa fa-home fa-lg"></i>
+  </a></li>
   {% for parent in page.parents %}
   <li><a href="{{ SITEURL }}/{{ parent.url }}">{{ parent.title }}</a></li>
   {% endfor %}
