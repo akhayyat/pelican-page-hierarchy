@@ -51,7 +51,7 @@ These attributes can be used to generate breadcrumbs or nested
 navigation menus. For example, this is a template excerpt for
 breadcrumbs:
 
-```python
+```html
 <ul class="breadcrumb">
   <li><a href="{{ SITEURL }}/" title="{{ SITENAME }}">
     <i class="fa fa-home fa-lg"></i>
