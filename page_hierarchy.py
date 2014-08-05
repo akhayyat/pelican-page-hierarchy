@@ -37,10 +37,10 @@ def reflect_page_hierarchy(generator):
 
     # set immediate parents and children
     for page in generator.pages:
-        parent = dirname(dirname(page.url))
-        if parent: parent += '/'
+        parent_url = dirname(dirname(page.url))
+        if parent_url: parent_url += '/'
         for page2 in generator.pages:
-            if page2.url == parent:
+            if page2.url == parent_url and page2 != page:
                 page.parent = page2
                 page2.children.append(page)
 
