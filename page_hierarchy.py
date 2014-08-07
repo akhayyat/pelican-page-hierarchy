@@ -1,4 +1,4 @@
-from pelican import signals
+from pelican import signals, contents
 from os.path import splitext, dirname
 
 '''
@@ -6,8 +6,8 @@ This plugin creates a URL hierarchy for pages that matches the
 filesystem hierarchy of their sources.
 
 To maintain a URL hierarchy that is consistent with the filesystem
-hierarchy, the slug of each page is forced to be its source base
-filename.
+hierarchy, the slug of each page is forced to be the path of its source
+file.
 '''
 
 def get_path(page, settings):
@@ -21,16 +21,21 @@ def get_path(page, settings):
     else:
         return splitext(page.get_relative_source_path())[0]
 
-def reflect_page_hierarchy(generator):
-    # set url and save_as attributes
-    for page in generator.pages:
-        path = get_path(page, generator.settings)
+def override_metadata(content_object):
+    if type(content_object) is contents.Page:
+        page = content_object
+
+        # set url, slug, and save_as attributes
+        path = get_path(page, page.settings)
         if not hasattr(page, 'override_url'):
             page.override_url = '%s/' % path
+            page.slug = '%s' % path
         if not hasattr(page, 'override_save_as'):
             page.override_save_as = '%s/index.html' % path
 
-        # initialize parents and children lists
+def set_relationships(generator):
+    # initialize parents and children lists
+    for page in generator.pages:
         page.parent = None
         page.parents = []
         page.children = []
@@ -53,4 +58,5 @@ def reflect_page_hierarchy(generator):
 
 
 def register():
-    signals.page_generator_finalized.connect(reflect_page_hierarchy)
+    signals.content_object_init.connect(override_metadata)
+    signals.page_generator_finalized.connect(set_relationships)
