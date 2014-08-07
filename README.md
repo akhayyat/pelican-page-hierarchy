@@ -8,15 +8,17 @@ following filesystem structure for page sources will result in the
 URLs listed next to each page when this plugin is used with the
 default pelican settings.
 
-    └── content/pages/           #   PAGE_DIR
-        ├── about.md             # URL: pages/about/
-        ├── projects.md          # URL: pages/projects/
-        ├── projects/            #   (directory)
-        │   ├── p1.md            # URL: pages/projects/p1/
-        │   ├── p2.md            # URL: pages/projects/p2/
-        │   └── p2/              #   (directory)
-        │       └── features.md  # URL: pages/projects/p2/features/
-        └── contact.md           # URL: pages/contact/
+```text
+└── content/pages/           #   PAGE_DIR
+    ├── about.md             # URL: pages/about/
+    ├── projects.md          # URL: pages/projects/
+    ├── projects/            #   (directory)
+    │   ├── p1.md            # URL: pages/projects/p1/
+    │   ├── p2.md            # URL: pages/projects/p2/
+    │   └── p2/              #   (directory)
+    │       └── features.md  # URL: pages/projects/p2/features/
+    └── contact.md           # URL: pages/contact/
+```
 
 To remove the `pages/` prefix and have pages at the root of your site:
 
