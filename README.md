@@ -3,10 +3,12 @@ Page Hierarchy
 *Author: Ahmad Khayyat (<akhayyat@gmail.com>)*
 
 A [Pelican][1] plugin that creates a URL hierarchy for pages that
-matches the filesystem hierarchy of their sources. For example, the
-following filesystem structure for page sources will result in the
-URLs listed next to each page when this plugin is used with the
-default pelican settings.
+matches the filesystem hierarchy of their sources.
+
+For example, the following filesystem structure for page sources will
+result in the URLs listed next to each page when this plugin is used and
+`PAGE_URL = 'pages/{slug}/'` and  `PAGE_SAVE_AS = 'pages/{slug}/index.html'`
+are set.
 
 ```text
 └── content/pages/           #   PAGE_DIR
@@ -19,29 +21,19 @@ default pelican settings.
     │       └── features.md  # URL: pages/projects/p2/features/
     └── contact.md           # URL: pages/contact/
 ```
+When generating the `url` and `save_as` values, the plugin attaches
+relative path prefix to page's `slug` property (which can be
+auto-slugified from `title`, `basename`, `PATH_METADATA`, or set manually).
 
-To remove the `pages/` prefix and have pages at the root of your site:
-
-```python
-# pelicanconf.py
-PATH_METADATA = 'pages/(?P<path>.*)\..*'
-```
-
-More generally, any value for the `PATH_METADATA` pelican setting that
-defines a `path` group will result in using the matching part of the
-source file path as the path for that page in the URL. This allows
-capturing other metadata from the source path.
-
-In order to maintain a URL hierarchy that is consistent with the
-filesystem hierarchy, the slug of each page is forced to be its source
-base filename. The page title and its slug attribute have no effect.
+The plugin is aware and works well with translations.
 
 Parent and Children Pages
 -------------------------
 This plugin also adds three attributes to each page object:
 
 - `parent`: the immediate parent page. `None` if the page is
-  top-level.
+  top-level. If a translated page has no parent, the default-language
+  parent is used.
 
 - `parents`: a list of all ancestor pages, starting from the top-level
   ancestor.
