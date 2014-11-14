@@ -5,10 +5,8 @@ Page Hierarchy
 A [Pelican][1] plugin that creates a URL hierarchy for pages that
 matches the filesystem hierarchy of their sources.
 
-For example, the following filesystem structure for page sources will
-result in the URLs listed next to each page when this plugin is used and
-`PAGE_URL = 'pages/{slug}/'` and  `PAGE_SAVE_AS = 'pages/{slug}/index.html'`
-are set.
+For example, to have the following filesystem structure of page
+sources result in the URLs listed next to each file,
 
 ```text
 └── content/pages/           #   PAGE_DIR
@@ -21,11 +19,24 @@ are set.
     │       └── features.md  # URL: pages/projects/p2/features/
     └── contact.md           # URL: pages/contact/
 ```
-When generating the `url` and `save_as` values, the plugin attaches
-relative path prefix to page's `slug` property (which can be
-auto-slugified from `title`, `basename`, `PATH_METADATA`, or set manually).
 
-The plugin is aware and works well with translations.
+you can use this plugin with the following Pelican settings:
+
+```python
+# pelicanconf.py
+PAGE_URL = '{slug}/'
+PAGE_SAVE_AS = '{slug}/index.html'
+SLUGIFY_SOURCE = 'basename'
+```
+
+When generating the `url` and `save_as` attributes, the plugin
+prefixes the page's `slug` by its relative path. Although the initial
+`slug` is generated from the page's `title` by default, it can be
+generated from the source file basename by setting the
+`SLUGIFY_SOURCE` setting to `'basename'`, as shown in the settings
+snippet above. The `slug` can also be set using [`PATH_METADATA`][2].
+
+This plugin is compatible with [Pelican translations][3].
 
 Parent and Children Pages
 -------------------------
@@ -60,3 +71,5 @@ breadcrumbs:
 
 
 [1]: http://getpelican.com/
+[2]: http://docs.getpelican.com/en/latest/settings.html#path-metadata
+[3]: http://docs.getpelican.com/en/latest/settings.html#translations
