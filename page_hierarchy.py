@@ -13,6 +13,7 @@ class UnexpectedException(Exception): pass
 def get_path(page, settings):
     ''' Return the dirname relative to PAGE_PATHS prefix. '''
     path = os.path.split(page.get_relative_source_path())[0] + '/'
+    path = path.replace( os.path.sep, '/' )
     # Try to lstrip the longest prefix first
     for prefix in sorted(settings['PAGE_PATHS'], key=len, reverse=True):
         if not prefix.endswith('/'): prefix += '/'
