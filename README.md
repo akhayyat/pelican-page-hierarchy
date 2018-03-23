@@ -70,6 +70,12 @@ breadcrumbs:
 ```
 
 
+License
+-------
+
+Licence: BSD. See the included `LICENSE` file.
+
+
 [1]: http://getpelican.com/
 [2]: http://docs.getpelican.com/en/latest/settings.html#path-metadata
 [3]: http://docs.getpelican.com/en/latest/settings.html#translations
